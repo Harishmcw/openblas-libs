@@ -42,7 +42,7 @@ jobs:
         python-version: 3.12
         architecture: arm64
 
-    - name: Setup Visual Studio
+    - name: Setup visual studio
       uses: microsoft/setup-msbuild@v2
 
     - name: Download, install 7zip.
@@ -58,7 +58,7 @@ jobs:
         echo "C:\Program Files\LLVM\bin" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
 
     - name: Update CMake for WoA
-      run:
+      run: |
         pip install cmake
         get-command cmake
 
@@ -102,7 +102,7 @@ jobs:
       # `-el {0}` is required.
       shell: bash -el {0}
       env:
-      ANACONDA_SCIENTIFIC_PYTHON_UPLOAD: ${{ secrets.ANACONDA_SCIENTIFIC_PYTHON_UPLOAD }}
-      run:
+        ANACONDA_SCIENTIFIC_PYTHON_UPLOAD: ${{ secrets.ANACONDA_SCIENTIFIC_PYTHON_UPLOAD }}
+      run: |
         source tools/upload_to_anaconda_staging.sh
         upload_wheels
