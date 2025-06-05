@@ -28,18 +28,11 @@ jobs:
 
     env:
       INTERFACE64: ${{ matrix.INTERFACE64 }}
+      INTERFACE_BITS: ${{ matrix.INTERFACE64 == 1 && '64' || '32' }}
 
     steps:
 
     - uses: actions/checkout@v4.1.1
-
-    - name: Set INTERFACE_BITS from INTERFACE64
-      run: |
-        if ($env:INTERFACE64 -eq "1") {
-          echo "INTERFACE_BITS=64" | Out-File -FilePath $env:GITHUB_ENV -Append
-        } else {
-          echo "INTERFACE_BITS=32" | Out-File -FilePath $env:GITHUB_ENV -Append
-        }
 
     - name: Set up Python
       uses: actions/setup-python@v5
@@ -75,8 +68,8 @@ jobs:
     - name: Pack
       run: |
         cd local
-        cp -r "scipy_openblas${env:INTERFACE_BITS}" $env:INTERFACE_BITS
-        7z a ../builds/openblas-${env:PLAT}-${env:INTERFACE64}.zip -tzip $env:INTERFACE_BITS
+        cp -r "scipy_openblas$env:INTERFACE_BITS" $env:INTERFACE_BITS
+        7z a ../builds/openblas-$env:PLAT-$env:INTERFACE64.zip -tzip $env:INTERFACE_BITS
 
     - name: Test ${{ env.INTERFACE_BITS }}-bit interface wheel
       run: |
