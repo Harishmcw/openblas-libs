@@ -22,6 +22,7 @@ jobs:
 
     strategy:
       matrix:
+        plat: arm64
         include:
           - INTERFACE64: 1
           - INTERFACE64: 0
