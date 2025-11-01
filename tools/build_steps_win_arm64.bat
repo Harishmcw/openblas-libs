@@ -98,7 +98,7 @@ PATH=C:\Program Files\LLVM\bin;%PATH%
 
 :: Run CMake and Ninja build
 cmake .. -G Ninja -DCMAKE_BUILD_TYPE=Release -DUSE_THREADS=1 -DNUM_THREADS=24 -DTARGET=ARMV8 -DBUILD_SHARED_LIBS=ON -DARCH=arm64 ^
--DBINARY=%build_bits% -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DCMAKE_C_COMPILER=clang-cl ^
+-DBINARY=%build_bits% -DCMAKE_SYSTEM_PROCESSOR=ARM64 -DBUILD_HFLOAT16=ON -DCMAKE_C_COMPILER=clang-cl ^
 -DCMAKE_Fortran_COMPILER=flang-new -DSYMBOLPREFIX="scipy_" -DLIBNAMEPREFIX="scipy_" %interface_flags%
 if errorlevel 1 exit /b 1
 
